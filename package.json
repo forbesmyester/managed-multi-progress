@@ -1,0 +1,41 @@
+{
+  "name": "managed-multi-progress",
+  "version": "0.9.0",
+  "description": "Manage multiple progress bars easily",
+  "directories": {
+    "src": "src",
+    "test": "test"
+  },
+  "main": "./dist/src/index.js",
+  "scripts": {
+    "test": "rm -rf dist ; tsc && ava ./dist/test/*.js && tslint src/**/*.ts test/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:forbesmyester/ebak.git"
+  },
+  "bin": {
+    "binary-repository": "bin/binary-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.15",
+    "@types/progress": "^2.0.0",
+    "@types/ramda": "0.0.11",
+    "ava": "^0.19.1",
+    "source-map-support": "^0.4.2",
+    "tslint": "^5.1.0",
+    "typescript": "^2.4.1"
+  },
+  "author": "Matthew Forrester <github.com@speechmarks.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/forbesmyester/ebak/issues"
+  },
+  "homepage": "https://github.com/forbesmyester/ebak",
+  "dependencies": {
+    "@types/progress": "^2.0.0",
+    "multi-progress": "^2.0.0",
+    "progress": "^2.0.0",
+    "ramda": "^0.24.1"
+  }
+}
