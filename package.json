@@ -1,6 +1,6 @@
 {
   "name": "managed-multi-progress",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Manage multiple progress bars easily",
   "directories": {
     "src": "src",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:forbesmyester/ebak.git"
+    "url": "git@github.com:forbesmyester/managed-multi-progress.git"
   },
   "bin": {
     "binary-repository": "bin/binary-repository"
@@ -29,9 +29,9 @@
   "author": "Matthew Forrester <github.com@speechmarks.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/forbesmyester/ebak/issues"
+    "url": "https://github.com/forbesmyester/managed-multi-progress/issues"
   },
-  "homepage": "https://github.com/forbesmyester/ebak",
+  "homepage": "https://github.com/forbesmyester/managed-multi-progress",
   "dependencies": {
     "@types/progress": "^2.0.0",
     "multi-progress": "^2.0.0",
