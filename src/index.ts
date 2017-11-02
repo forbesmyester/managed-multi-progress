@@ -89,12 +89,13 @@ export function knockOut<A>(index: number, moveFn: (a: A, b: A) => A, newVal: A,
 //
 export interface BarUpdater {
     (BarUpdate): void;
-    terminate: () => void;
+    terminate: (msg?: string) => void;
 }
 
 
 export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBarOpts: BarInput): BarUpdater {
 
+    let terminated = false;
     let bars: Bar[] = [];
     let multiProgress = new MultiProgress();
 
@@ -138,19 +139,16 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
     bars.push(create(merge({ params: { title: 'overall' } }, mainBar)));
 
     let barUpdater: BarUpdater = <BarUpdater>function barUpdater(barUpdate: BarUpdate) {
-        // console.log(barUpdate);
+        if (terminated) { return; }
         let perhapsAlready = findIndex(
             (b) => { return b.id == barUpdate.id; },
             bars
         );
-        // console.log(perhapsAlready, barUpdate.id);
         if (perhapsAlready > -1) {
-            // console.log("p");
             update(bars[perhapsAlready], barUpdate);
             return;
         }
         if (bars.length < maxBarCount) {
-            // console.log("s");
             bars.push(create(merge(
                 subBarOpts,
                 barUpdate,
@@ -167,7 +165,6 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
             (b) => { return b.id == oldest.id; },
             bars
         );
-        // console.log("r");
         bars = knockOut<Bar>(
             oldestIndex,
             (a: Bar, b: Bar) => {
@@ -184,8 +181,12 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
         return;
     };
 
-    barUpdater.terminate = () => {
+    barUpdater.terminate = (msg) => {
+        terminated = true;
         multiProgress.terminate();
+        if (msg) {
+            console.log(msg);
+        }
     };
 
     return barUpdater;
@@ -227,9 +228,8 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
 //             });
 //         }
 //         if (i >= 100) {
-//             barUpdater.terminate();
+//             barUpdater.terminate("Done");
 //             clearInterval(interval);
-//             console.log("");
 //         }
 //     }, 100);
 // }

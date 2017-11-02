@@ -18,6 +18,6 @@ export interface BarUpdate {
 export declare function knockOut<A>(index: number, moveFn: (a: A, b: A) => A, newVal: A, ar: A[]): A[];
 export interface BarUpdater {
     (BarUpdate: any): void;
-    terminate: () => void;
+    terminate: (msg?: string) => void;
 }
 export default function index(maxBarCount: any, mainBar: BarInput & BarUpdate, subBarOpts: BarInput): BarUpdater;
