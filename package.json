@@ -1,6 +1,6 @@
 {
   "name": "managed-multi-progress",
-  "version": "0.9.1",
+  "version": "0.11.0",
   "description": "Manage multiple progress bars easily",
   "directories": {
     "src": "src",
@@ -13,9 +13,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:forbesmyester/managed-multi-progress.git"
-  },
-  "bin": {
-    "binary-repository": "bin/binary-repository"
   },
   "devDependencies": {
     "@types/node": "^7.0.15",

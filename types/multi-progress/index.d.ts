@@ -3,6 +3,7 @@ declare module 'multi-progress' {
 
     class MultiProgress {
         newBar(schema: any, options: any): ProgressBar;
+        terminate(): void;
     }
 
     namespace MultiProgress {}
