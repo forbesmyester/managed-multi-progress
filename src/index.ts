@@ -98,6 +98,7 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
     let terminated = false;
     let bars: Bar[] = [];
     let multiProgress = new MultiProgress();
+    let inited = false;
 
     function update(bar: Bar, update: BarUpdate) {
         let params = assoc('id', update.id, update.params);
@@ -117,7 +118,7 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
         return bar;
     }
 
-    function create(inputAndUpdate: BarInput & BarUpdate): Bar {
+    function create(inputAndUpdate: BarInput & BarUpdate, andUpdate: boolean = true): Bar {
         let overallBar1 = multiProgress.newBar(
             inputAndUpdate.format,
             {
@@ -130,15 +131,19 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
         );
 
         let b = merge(inputAndUpdate, { bar: overallBar1, time: new Date().getTime() });
-        update(b, inputAndUpdate);
+        if (andUpdate) { update(b, inputAndUpdate); }
 
         return b;
 
     }
 
-    bars.push(create(merge({ params: { title: 'overall' } }, mainBar)));
+    bars.push(create(merge({ params: { title: 'overall' } }, mainBar), false));
 
     let barUpdater: BarUpdater = <BarUpdater>function barUpdater(barUpdate: BarUpdate) {
+        if (!inited) {
+            update(bars[0], merge({ params: { title: 'overall' } }, mainBar));
+            inited = true;
+        }
         if (terminated) { return; }
         let perhapsAlready = findIndex(
             (b) => { return b.id == barUpdate.id; },
@@ -200,8 +205,8 @@ export default function index(maxBarCount, mainBar: BarInput & BarUpdate, subBar
 //     let barUpdater = index(
 //         5,
 //         {
-//             current: 10,
-//             total: 30,
+//             current: 0,
+//             total: 10,
 //             format: 'M[:bar] :current/:total - :id :title',
 //             id: 'main',
 //             width: 10,
